@@ -1,5 +1,3 @@
----
-
 ## 🧮 DAX Measures Used in Power BI
 
 This project includes several custom DAX measures to support visualizations and KPI cards in Power BI. Below are key examples:
