@@ -1,191 +1,197 @@
-# 📊 Diabetic Patients 30-Day Readmission Analysis and Dashboard
 
-This project explores the key factors contributing to **30-day hospital readmissions among diabetic patients** using the UCI Diabetes dataset. It integrates **Python** for EDA, **SQL Server** for query-driven profiling, and **Power BI** for interactive dashboard reporting.
+# 📊 Diabetic Patients 30-Day Readmission Analysis & Dashboard
+
+This project investigates the clinical and systemic factors contributing to **30-day hospital readmission** among diabetic patients using the **UCI Diabetes 130-US Hospitals dataset**.
 
 ---
 
 ## 🎯 Objective
 
-To identify and visualize the most influential factors behind early hospital readmission (<30 days) in diabetic patients by analyzing clinical, treatment, and diagnostic variables.
+To identify patterns and risk factors that influence why diabetic patients are readmitted within 30 days, and to visualize those insights for stakeholders using Power BI, Python, and SQL.
 
 ---
 
-## 📁 Repository Structure
+## 📁 Dataset
 
-```bash
-├── images/
-│   └── Diabetic_30_days_Readmission_Dashboard.png   # Dashboard screenshot
-├── raw_data/
-│   ├── IDS_mapping.csv
-│   ├── Variables_Description.xlsx
-│   └── diabetic_dataset.csv                         # Original dataset
-├── Diabetes KPI Questions.pdf                        # KPI questions answered in the dashboard
-├── Diabetes.ipynb                                   # Python EDA and statistics
-├── Diabetic_Readmission_Dashboard.pbit              # Power BI Template file
-├── SQLQuery1.sql                                     # SQL queries for analysis
-├── README.md
-```
+- Source: [UCI Machine Learning Repository – Diabetes 130-US Hospitals](https://archive.ics.uci.edu/dataset/296/diabetes+130-us+hospitals+for+years+1999-2008)
+- 100,000+ de-identified hospital encounters between 1999–2008 for diabetic patients
+
+---
+
+## 🛠 Tools Used
+
+| Stage        | Tool(s) Used                                   |
+|--------------|------------------------------------------------|
+| Data Cleaning/EDA | Python (Pandas, Seaborn, Matplotlib)   |
+| Storage & Analysis | SQL Server Management Studio (SSMS)     |
+| Visualization | Power BI                                     |
+| Deployment | GitHub Portfolio                                |
+
+---
+
+## 🔄 Workflow
+
+1. Cleaned messy Excel data in **Python** (handled missing values, grouped diagnosis codes, created age groups, etc.)
+2. Performed **Exploratory Data Analysis (EDA)** and statistical tests (Chi-Square & t-tests)
+3. Stored processed dataset into **SQL Server** and wrote advanced SQL queries to answer KPIs
+4. Developed an **interactive Power BI dashboard** using custom DAX measures and visuals
 
 ---
 
 ## 📌 Key Project Steps
 
-### 🔎 1. Exploratory Data Analysis (Python)
-- Null value analysis, age group segmentation, and categorical mapping
-- Chi-square and T-tests to detect significant variables
-- ICD-9 code grouping into diagnostic categories
-
-### 🗄️ 2. Data Querying (SQL Server)
-- Aggregated readmission statistics
-- Risk profile combinations: meds, inpatient history, diagnoses
-- Grouped visual summaries for use in Power BI
-
-### 📊 3. Dashboard Visualization (Power BI)
-- 30-Day Readmission Rate & Patient Demographics
-- Diagnosis-wise patient distribution (`diag_1`, `diag_2`, `diag_3`)
-- Specialty-wise readmission trends
-- Risk matrix visualization for top readmitted profiles
+- Cleaned and pre-processed 100,000+ hospital records using Pandas
+- Created flags based on thresholds for:
+  - `num_medications` (polypharmacy)
+  - `time_in_hospital` (long stay)
+  - `number_inpatient` (frequent admissions)
+  - `number_diagnoses` (multimorbidity)
+- Conducted:
+  - Chi-square tests on categorical variables
+  - T-tests on numerical variables
+  - Correlation analysis and boxplots
+- Answered 15+ KPI questions using SQL (full list in repo)
+- Built a detailed Power BI dashboard with DAX logic and slicers
+- Converted diagnosis codes into ICD-9 clinical categories using `diag_1`, `diag_2`, `diag_3`
 
 ---
 
-## 📷 Dashboard Preview
+## 🔍 Detailed Findings
 
-![Dashboard](images/Diabetic_30_days_Readmission_Dashboard.png)
+### 1. 🧓 Age-Related Patterns
+- The **Senior age group (60–70 years)** accounts for the highest number of readmissions.
+- Combined with **Middle Aged and Elderly**, older patients dominate the readmitted population.
 
----
-
-## 🔍 Findings Summary
-
-- **Age**: Seniors (60–70) were most readmitted
-- **Diagnosis**: Circulatory and Endocrine systems dominate across diag_1–3
-- **Medication Behavior**: Insulin adjustments and metformin changes linked to higher risk
-- **Specialties**: Internal Medicine saw the most readmitted cases
-- **High-Risk Profiles**: Patients with frequent prior admissions (`HighInpt`) and low diagnoses (`LowDiag`) accounted for the largest portion of readmissions
+💡 **Insight**: Age-related complications or comorbidities likely increase readmission risk.
 
 ---
 
-## 📊 KPIs Answered
+### 2. 💊 Medication Behavior & Changes
+- A large group of patients (4,020) had **no medication change** but were on **metformin**.
+- Patients with changes in medication (`Up` or `Down`) may indicate **clinical instability**.
 
-- What is the 30-day readmission rate?
-- Which diagnosis categories appear most frequently across diag_1, diag_2, diag_3?
-- What role do insulin, diabetes meds, and metformin play in readmission?
-- Which patient risk profiles (meds + visits + diagnosis) dominate readmissions?
-
----
-
-## 📎 Dataset Information
-
-- **Source**: [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/296/diabetes+130-us+hospitals+for+years+1999-2008)
-- **Records**: 101,766 patient encounters from 130 hospitals
-- **Years Covered**: 1999 to 2008
+💡 **Insight**: Medication adjustment behavior, especially involving **metformin**, is a strong risk signal.
 
 ---
 
-## 🧰 Technologies Used
+### 3. 💉 Insulin Usage
+- Most patients were under **'Steady'** or **'No insulin'** groups.
+- However, a significant portion of readmissions came from those with insulin marked **'Up' or 'Down'**.
 
-- **Python** (Pandas, Seaborn, SciPy)
-- **SQL Server (SSMS)**
-- **Power BI**
-- **DAX**
-
----
-
-## 🧮 DAX Measures Used in Power BI
-
-This project includes several custom DAX measures to support visualizations and KPI cards in Power BI. Below are key examples:
-
-### 1. **30-Day Readmission Count**
-```dax
-Readmitted Patients =
-CALCULATE(
-    COUNTROWS(diabetic_readmission_records),
-    diabetic_readmission_records[readmitted_flag] = 1
-)
-```
-
-### 2. **Total Patients**
-```dax
-Total Patients = COUNTROWS(diabetic_readmission_records)
-```
-
-### 3. **Readmission Rate (%)**
-```dax
-Readmission Rate (%) =
-DIVIDE(
-    [Readmitted Patients],
-    [Total Patients],
-    0
-)
-```
-
-### 4. **Risk Profile Share of Readmitted Patients**
-```dax
-Readmitted Patient Share (%) :=
-VAR GroupReadmitted =
-    CALCULATE(COUNTROWS(diabetic_readmission_records), diabetic_readmission_records[readmitted_flag] = 1)
-VAR TotalReadmitted =
-    CALCULATE(
-        COUNTROWS(diabetic_readmission_records),
-        diabetic_readmission_records[readmitted_flag] = 1,
-        REMOVEFILTERS(
-            diabetic_readmission_records[meds_flag],
-            diabetic_readmission_records[inpt_flag],
-            diabetic_readmission_records[diag_flag]
-        )
-    )
-RETURN
-DIVIDE(GroupReadmitted, TotalReadmitted, 0)
-```
-
-### 5. **Calculated Columns (for flag creation)**
-```dax
-meds_flag = IF(diabetic_readmission_records[num_medications] >= 20, "HighMeds", "LowMeds")
-inpt_flag = IF(diabetic_readmission_records[number_inpatient] >= 2, "HighInpt", "LowInpt")
-diag_flag = IF(diabetic_readmission_records[number_diagnoses] >= 9, "HighDiag", "LowDiag")
-```
-
-### 6. **Diagnosis Grouping Column**
-```dax
-diag_category = 
-VAR diag_val = diabetic_readmission_records[diag_1]
-VAR diag_num = IFERROR(VALUE(diag_val), BLANK())
-RETURN
-    SWITCH(
-        TRUE(),
-        ISBLANK(diag_val), "Unknown",
-        LEFT(diag_val, 1) = "V", "Health Services Factors",
-        LEFT(diag_val, 1) = "E", "External Causes of Injury",
-        diag_val = "Uncoded", "Uncoded",
-        NOT ISBLANK(diag_num) && diag_num >= 1 && diag_num <= 139, "Infectious & Parasitic Diseases",
-        diag_num >= 140 && diag_num <= 239, "Neoplasms",
-        diag_num >= 240 && diag_num <= 279, "Endocrine & Metabolic",
-        diag_num >= 280 && diag_num <= 289, "Blood Diseases",
-        diag_num >= 290 && diag_num <= 319, "Mental Disorders",
-        diag_num >= 320 && diag_num <= 389, "Nervous System",
-        diag_num >= 390 && diag_num <= 459, "Circulatory System",
-        diag_num >= 460 && diag_num <= 519, "Respiratory System",
-        diag_num >= 520 && diag_num <= 579, "Digestive System",
-        diag_num >= 580 && diag_num <= 629, "Genitourinary System",
-        diag_num >= 630 && diag_num <= 679, "Pregnancy & Childbirth",
-        diag_num >= 680 && diag_num <= 709, "Skin & Subcutaneous",
-        diag_num >= 710 && diag_num <= 739, "Musculoskeletal System",
-        diag_num >= 740 && diag_num <= 759, "Congenital Anomalies",
-        diag_num >= 760 && diag_num <= 779, "Perinatal Conditions",
-        diag_num >= 780 && diag_num <= 799, "Symptoms & Ill-defined",
-        diag_num >= 800 && diag_num <= 999, "Injury & Poisoning",
-        "Other/Unknown"
-    )
-```
+💡 **Insight**: Insulin titration or lack of stabilization could reflect poor glucose control and risk of readmission.
 
 ---
 
-## 📥 How to Use This Project
+### 4. 🏥 Medical Specialty Impact
+- **Internal Medicine** had the highest readmission count (1,646), followed by **General Practice** and **Emergency/Trauma** specialties.
 
-1. Clone the repo  
-2. Use `Diabetes.ipynb` to explore and preprocess the data  
-3. Run `SQLQuery1.sql` to create views and tables in SQL Server  
-4. Open `Diabetic_Readmission_Dashboard.pbit` in Power BI  
-5. Connect to your SQL data source and explore the visuals
+💡 **Insight**: Certain specialties handle more complex or chronic conditions, increasing risk post-discharge.
+
+---
+
+### 5. 🚫 Diabetes Medication Status
+- Around **80% of readmitted patients were not on diabetes-specific medications** at the time of visit.
+
+💡 **Insight**: Lack of active diabetes management may correlate with poorer clinical outcomes.
+
+---
+
+### 6. 🧾 Diagnosis-Based Findings (diag_1, diag_2, diag_3)
+
+#### 🔹 Circulatory System Disorders Dominate
+- Most common diagnosis group across all levels:
+  - `diag_1`: 3,474 cases
+  - `diag_2`: 3,462 cases
+  - `diag_3`: 3,203 cases
+
+📌 **Insight**: Cardiovascular issues (e.g., hypertension, heart failure) are the strongest clinical co-conditions for readmission.
+
+#### 🔹 Endocrine & Metabolic Disorders Are Consistently 2nd
+- High frequency in all diagnosis fields:
+  - `diag_1`: 1,456
+  - `diag_2`: 2,275
+  - `diag_3`: 2,749
+
+📌 **Insight**: Poor chronic diabetes control appears across primary and secondary diagnoses.
+
+#### 🔹 Respiratory and Digestive System Conditions
+- Appear mostly in `diag_2` and `diag_3` (e.g., pneumonia, GERD).
+
+📌 **Insight**: These systems may be indirectly impacted by diabetes and contribute to complex readmission cases.
+
+#### 🔹 Symptoms & Ill-Defined Conditions
+- Common in `diag_2` and `diag_3`.
+
+📌 **Insight**: Many readmitted patients present with vague, unstable conditions — indicating **diagnostic or follow-up gaps**.
+
+#### 🔹 Genitourinary & Skin Disorders
+- Consistently present in secondary diagnoses.
+
+📌 **Insight**: Likely linked to common diabetes complications like **UTIs or ulcers**.
+
+---
+
+### 7. ⚠️ Risk Profile Combination Analysis
+
+Using matrix analysis from:
+``meds_flag + inpt_flag + diag_flag``
+
+- The group **LowMeds + HighInpt + LowDiag** accounts for the **largest share of readmissions** (**50.81%**).
+- `HighInpt` = frequent past hospitalizations  
+- `LowDiag` = possibly under-diagnosed or under-documented patients
+
+💡 **Insight**: Patients with frequent hospitalizations, even without high diagnosis counts, are at **critical risk**.
+
+---
+
+### ✅ Final Clinical Recommendation
+
+> Focus post-discharge care on:
+> - **Senior and elderly patients**
+> - Those with **recent insulin or medication changes**
+> - Patients with **circulatory or endocrine diagnoses**
+> - Those flagged as **HighInpt** even with low diagnosis counts
+
+🧠 **Summary**:  
+Most diabetic patients readmitted within 30 days suffer from **multisystem instability**, with dominant diagnoses in the **circulatory** and **endocrine/metabolic** categories, often accompanied by **ill-defined symptoms** or **secondary complications** in respiratory, digestive, or genitourinary systems.
+
+➡️ **Actionable strategies** include risk stratification, better discharge planning, and targeted follow-ups.
+
+
+---
+
+## 🧮 DAX Measures Used (Power BI)
+
+- `Readmitted Patient Count`
+- `Readmission Rate (%)`
+- `Readmitted Patient Share (%)`
+- Custom columns like `meds_flag`, `inpt_flag`, `stay_flag`, `diag_flag`
+- ICD-9 based `diag_1_category`, `diag_2_category`, `diag_3_category`
+
+📂 Refer to `README_dax_section.md` or Power BI `.pbix` for full logic.
+
+---
+
+## ❓ KPI Questions
+
+> We explored over **15+ targeted questions** such as:
+- Readmission rate by age, diagnosis, medications, insulin usage
+- High-risk profile identification
+- Diagnosis categories most linked with readmissions
+
+📁 For full list of KPIs, see `Diabetes KPI Questions.pdf` in this repo.
+
+---
+
+## 🧠 Conclusion
+
+This analysis shows that **diabetic readmissions within 30 days** are driven by:
+- Unstable chronic conditions (like circulatory & endocrine issues)
+- Polypharmacy and inpatient history
+- Lack of proper medication adjustments
+- Gaps in diagnosis or follow-up (as seen in vague symptoms)
+
+📊 The final dashboard visualizes these findings using slicers, KPIs, matrix views, and diagnosis-based charts.
 
 ---
 
@@ -195,9 +201,4 @@ This project is open-source and available under the MIT License.
 
 ---
 
-## 🙌 Acknowledgements
-
-- UCI ML Repository for the dataset  
-- ICD9Data.com for diagnosis grouping references
-
----
+Let me know if you'd like to include a section on “how to contribute” or usage instructions for recruiters.
