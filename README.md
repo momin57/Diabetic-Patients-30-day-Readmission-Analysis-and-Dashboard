@@ -64,15 +64,11 @@ To identify patterns and risk factors that influence why diabetic patients are r
 
 💡 **Insight**: Age-related complications or comorbidities likely increase readmission risk.
 
----
-
 ### 2. 💊 Medication Behavior & Changes
 - A large group of patients (4,020) had **no medication change** but were on **metformin**.
 - Patients with changes in medication (`Up` or `Down`) may indicate **clinical instability**.
 
 💡 **Insight**: Medication adjustment behavior, especially involving **metformin**, is a strong risk signal.
-
----
 
 ### 3. 💉 Insulin Usage
 - Most patients were under **'Steady'** or **'No insulin'** groups.
@@ -80,21 +76,15 @@ To identify patterns and risk factors that influence why diabetic patients are r
 
 💡 **Insight**: Insulin titration or lack of stabilization could reflect poor glucose control and risk of readmission.
 
----
-
 ### 4. 🏥 Medical Specialty Impact
 - **Internal Medicine** had the highest readmission count (1,646), followed by **General Practice** and **Emergency/Trauma** specialties.
 
 💡 **Insight**: Certain specialties handle more complex or chronic conditions, increasing risk post-discharge.
 
----
-
 ### 5. 🚫 Diabetes Medication Status
 - Around **80% of readmitted patients were not on diabetes-specific medications** at the time of visit.
 
 💡 **Insight**: Lack of active diabetes management may correlate with poorer clinical outcomes.
-
----
 
 ### 6. 🧾 Diagnosis-Based Findings (diag_1, diag_2, diag_3)
 
@@ -128,8 +118,6 @@ To identify patterns and risk factors that influence why diabetic patients are r
 - Consistently present in secondary diagnoses.
 
 📌 **Insight**: Likely linked to common diabetes complications like **UTIs or ulcers**.
-
----
 
 ### 7. ⚠️ Risk Profile Combination Analysis
 
