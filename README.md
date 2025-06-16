@@ -188,5 +188,3 @@ This analysis shows that **diabetic readmissions within 30 days** are driven by:
 This project is open-source and available under the MIT License.
 
 ---
-
-Let me know if you'd like to include a section on “how to contribute” or usage instructions for recruiters.
