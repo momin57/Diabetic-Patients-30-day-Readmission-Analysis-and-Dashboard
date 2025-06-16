@@ -161,7 +161,7 @@ Most diabetic patients readmitted within 30 days suffer from **multisystem insta
 
 ## 📷 Dashboard Preview
 
-![Dashboard](Diabetic_30_days_Readmission_Dashboard.png)
+![Dashboard](images/Diabetic_30_days_Readmission_Dashboard.png)
 
 ---
 
