@@ -159,6 +159,12 @@ Most diabetic patients readmitted within 30 days suffer from **multisystem insta
 
 ---
 
+## 📷 Dashboard Preview
+
+![Dashboard](Dashboard.png)
+
+---
+
 ## ❓ KPI Questions
 
 > We explored over **15+ targeted questions** such as:
